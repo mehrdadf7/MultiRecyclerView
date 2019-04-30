@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".pages.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/white"
+                android:text="mehrdadf7 - multi recyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/open_github"
+                android:layout_alignParentEnd="true"
+                android:tint="@android:color/white"
+                android:padding="16dp"
+                app:srcCompat="@drawable/ic_github_logo"
+                android:layout_width="56dp"
+                android:layout_height="56dp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
