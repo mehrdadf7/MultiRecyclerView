@@ -10,7 +10,7 @@ import com.github.mehrdadf7.multirecyclerview.R;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectBanner;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectItem;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectSlider;
-import com.github.mehrdadf7.multirecyclerview.pages.MainActivity;
+import com.github.mehrdadf7.multirecyclerview.viewHolders.BannerViewHolder;
 import com.github.mehrdadf7.multirecyclerview.viewHolders.ItemViewHolder;
 import com.github.mehrdadf7.multirecyclerview.viewHolders.SliderViewHolder;
 

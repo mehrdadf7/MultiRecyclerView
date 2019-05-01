@@ -2,30 +2,21 @@ package com.github.mehrdadf7.multirecyclerview.models;
 
 public class ObjectBanner {
 
-    private int backgroundColor;
-    private String text;
+    private String imageUrl;
 
-    public ObjectBanner(int backgroundColor, String text) {
-        this.backgroundColor = backgroundColor;
-        this.text = text;
+
+    public ObjectBanner(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public ObjectBanner() {
     }
 
-    public int getBackgroundColor() {
-        return backgroundColor;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

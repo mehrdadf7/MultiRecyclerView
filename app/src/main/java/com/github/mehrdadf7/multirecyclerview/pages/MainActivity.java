@@ -54,14 +54,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         List<ObjectSlider> sliders = new ArrayList<>();
         String myImageRes = "android.resource://" + getPackageName() + "/" + R.drawable.mehrdad;
-        sliders.add(new ObjectSlider(myImageRes));
-        sliders.add(new ObjectSlider(myImageRes));
+        sliders.add(new ObjectSlider("https://zocada.com/wp-content/uploads/2018/07/android_recycler_view-740x370.png"));
+        sliders.add(new ObjectSlider("https://blog.iamsuleiman.com/wp-content/uploads/2016/05/android-recyclerview-fastadapter-header.png"));
         sliders.add(new ObjectSlider(myImageRes));
 
-        ObjectBanner banner1 = new ObjectBanner(R.color.banner1, "بنر اول");
-        ObjectBanner banner2 = new ObjectBanner(R.color.banner2, "بنر دوم");
-        ObjectBanner banner3 = new ObjectBanner(R.color.banner3, "بنر سوم");
-        ObjectBanner banner4 = new ObjectBanner(R.color.banner4, "بنر چهارم");
+        ObjectBanner banner1 = new ObjectBanner("https://advancedrecyclerview.h6ah4i.com/images/ogp.png");
+        ObjectBanner banner2 = new ObjectBanner("https://cdn-images-1.medium.com/max/1200/1*mU-dHEyAcrcOz-kHU0YFLQ.png");
+        ObjectBanner banner3 = new ObjectBanner("https://cdn-images-1.medium.com/max/1600/1*yCPgYs8v23tPN3c3VJTwxQ.png");
 
         List<ObjectItem> items1 = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         objects.add(items2);
         objects.add(banner3);
         objects.add(items3);
-        objects.add(banner4);
 
         return objects;
     }

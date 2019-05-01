@@ -7,7 +7,7 @@
 
     <ss.com.bannerslider.Slider
         app:slider_loopSlides="true"
-        app:slider_interval="4000"
+        app:slider_interval="5000"
         android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="240dp" />

@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_margin="8dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/imageView"
-        tools:background="@color/colorPrimaryDark"
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView"
-        tools:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</FrameLayout>
+</androidx.cardview.widget.CardView>

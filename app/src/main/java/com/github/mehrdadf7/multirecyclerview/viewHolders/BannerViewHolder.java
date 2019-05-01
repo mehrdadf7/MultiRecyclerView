@@ -1,4 +1,4 @@
-package com.github.mehrdadf7.multirecyclerview.adapters;
+package com.github.mehrdadf7.multirecyclerview.viewHolders;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -11,27 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mehrdadf7.multirecyclerview.R;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectBanner;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 public class BannerViewHolder extends RecyclerView.ViewHolder {
 
     //layout_banner
     private ImageView imageView;
-    private AppCompatTextView textView;
 
     public BannerViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageView);
-        textView  = itemView.findViewById(R.id.textView);
     }
 
     public void bind(final ObjectBanner banner) {
-        textView.setText(banner.getText());
-        imageView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), banner.getBackgroundColor()));
+
+        Picasso.get().load(banner.getImageUrl()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(itemView.getContext(), banner.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(), "بنر " + getAdapterPosition() , Toast.LENGTH_SHORT).show();
             }
         });
 
