@@ -16,24 +16,24 @@ import com.squareup.picasso.Picasso;
 
 public class BannerViewHolder extends RecyclerView.ViewHolder {
 
-    //layout_banner
-    private ImageView imageView;
+  //layout_banner
+  private ImageView imageView;
 
-    public BannerViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imageView = itemView.findViewById(R.id.imageView);
-    }
+  public BannerViewHolder(@NonNull View itemView) {
+    super(itemView);
+    imageView = itemView.findViewById(R.id.imageView);
+  }
 
-    public void bind(final ObjectBanner banner) {
+  public void bind(final ObjectBanner banner) {
 
-        Picasso.get().load(banner.getImageUrl()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(imageView);
+    Picasso.get().load(banner.getImageUrl()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(imageView);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(itemView.getContext(), "بنر " + getAdapterPosition() , Toast.LENGTH_SHORT).show();
-            }
-        });
+    imageView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Toast.makeText(itemView.getContext(), "بنر " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+      }
+    });
 
-    }
+  }
 }

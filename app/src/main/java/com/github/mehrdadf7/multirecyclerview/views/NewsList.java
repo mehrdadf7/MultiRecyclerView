@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -12,54 +14,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mehrdadf7.multirecyclerview.R;
 import com.github.mehrdadf7.multirecyclerview.adapters.ItemAdapter;
+import com.github.mehrdadf7.multirecyclerview.adapters.NewsAdapter;
+import com.github.mehrdadf7.multirecyclerview.models.News;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomList extends LinearLayoutCompat {
+public class NewsList extends LinearLayoutCompat {
 
-  private AppCompatTextView title;
   private RecyclerView recyclerView;
 
-  public CustomList(Context context) {
+  public NewsList(Context context) {
     super(context);
     init();
   }
 
-  public CustomList(Context context, AttributeSet attrs) {
+  public NewsList(Context context, AttributeSet attrs) {
     super(context, attrs);
     init();
   }
 
-  public CustomList(Context context, AttributeSet attrs, int defStyleAttr) {
+  public NewsList(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init();
   }
 
   private void init() {
     View rootView = LayoutInflater.from(getContext())
-        .inflate(R.layout.view_custom_list, this, true);
-    title = rootView.findViewById(R.id.title);
+        .inflate(R.layout.view_news_list, this, true);
     recyclerView = rootView.findViewById(R.id.recyclerView);
   }
 
-  public void setOnTitleClickListener(OnClickListener onClickListener) {
-    title.setOnClickListener(onClickListener);
-  }
-
-  public void setTitle(String titleString) {
-    title.setText(titleString);
-  }
-
-  public String getTextTitle() {
-    return title.getText().toString();
-  }
-
-  public void attachList(ArrayList<ObjectItem> objects) {
+  public void attachList(ArrayList<News.Article> articles) {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, true));
-    ItemAdapter itemAdapter = new ItemAdapter(objects);
-    recyclerView.setAdapter(itemAdapter);
+    recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in)));
+    NewsAdapter newsAdapter = new NewsAdapter(articles);
+    recyclerView.setAdapter(newsAdapter);
   }
 
 }

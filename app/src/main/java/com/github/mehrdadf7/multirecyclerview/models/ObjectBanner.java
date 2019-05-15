@@ -2,21 +2,22 @@ package com.github.mehrdadf7.multirecyclerview.models;
 
 public class ObjectBanner {
 
-    private String imageUrl;
+  private String imageUrl;
 
 
-    public ObjectBanner(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+  public ObjectBanner(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
 
-    public ObjectBanner() {
-    }
+  public ObjectBanner() {
+  }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+  public String getImageUrl() {
+    return imageUrl;
+  }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
 }
