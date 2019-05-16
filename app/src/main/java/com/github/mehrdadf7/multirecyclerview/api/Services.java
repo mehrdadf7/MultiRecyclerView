@@ -10,9 +10,18 @@ public interface Services {
 
   @GET("top-headlines")
   Observable<News> getNews(
-      @Query("page") int page,
+      @Query("page") Integer page,
+      @Query("pageSize") Integer pageSize,
       @Query("country") String country,
       @Query("category") String category,
+      @Query("apiKey") String apiKey
+  );
+
+  @GET("everything")
+  Observable<News> getArticles(
+      @Query("pageSize") Integer pageSize,
+      @Query("page") Integer page,
+      @Query("domains") String domains,
       @Query("apiKey") String apiKey
   );
 

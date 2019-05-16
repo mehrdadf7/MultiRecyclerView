@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,69 +17,65 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.mehrdadf7.multirecyclerview.R;
 import com.github.mehrdadf7.multirecyclerview.adapters.MultiAdapter;
 import com.github.mehrdadf7.multirecyclerview.api.ApiService;
+import com.github.mehrdadf7.multirecyclerview.interfaces.OnHeaderClickListener;
 import com.github.mehrdadf7.multirecyclerview.models.News;
-import com.github.mehrdadf7.multirecyclerview.models.ObjectBanner;
+import com.github.mehrdadf7.multirecyclerview.models.NewsHeader;
 import com.github.mehrdadf7.multirecyclerview.models.ObjectSlider;
-import com.github.mehrdadf7.multirecyclerview.utils.InfiniteScrollProvider;
+import com.github.mehrdadf7.multirecyclerview.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity
-    implements View.OnClickListener {
+public class MainActivity extends BaseActivity
+    implements View.OnClickListener, Observer<ArrayList<Object>> {
 
   private static final String TAG = MainActivity.class.getSimpleName();
 
   private AppCompatImageView openGithub;
   private RecyclerView recyclerView;
   private MultiAdapter adapter;
-  ArrayList<Object> objects = new ArrayList<>();
-  private CompositeDisposable disposables = new CompositeDisposable();
-
-  private int page = 1;
+  private ProgressBar progressBar;
+  private Disposable disposable;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
     findViews();
     init();
   }
 
+  @Override
+  protected int getLayout() {
+    return R.layout.activity_main;
+  }
+
   private void findViews() {
-    recyclerView = findViewById(R.id.recyclerView);
     openGithub = findViewById(R.id.open_github);
+    recyclerView = findViewById(R.id.recyclerView);
+    progressBar = findViewById(R.id.progressBar);
 
     openGithub.setOnClickListener(this);
   }
 
   private void init() {
-
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setLayoutAnimation(new LayoutAnimationController(AnimationUtils.loadAnimation(this, android.R.anim.fade_in)));
-    prepareData();
-    adapter = new MultiAdapter(objects);
+    recyclerView.setLayoutAnimation(
+        new LayoutAnimationController(
+            AnimationUtils.loadAnimation(this,
+                android.R.anim.slide_in_left)));
+    adapter = new MultiAdapter();
     recyclerView.setAdapter(adapter);
+    prepareData();
 
-    InfiniteScrollProvider scrollProvider = new InfiniteScrollProvider();
-    scrollProvider.attach(recyclerView, () -> {
-      disposables.add(
-          ApiService.getApiService().getNews(page, "us", "technology")
-              .subscribe(news -> {
-                adapter.addItems(news.getArticles());
-                Toast.makeText(this, "GET", Toast.LENGTH_SHORT).show();
-              })
-      );
-
-      page += 1;
+    adapter.setOnHeaderClickListener(header -> {
+      Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+      intent.putExtra("header" , header);
+      startActivity(intent);
     });
 
   }
@@ -88,74 +84,93 @@ public class MainActivity extends AppCompatActivity
 
     String myImageRes = "android.resource://" + getPackageName() + "/" + R.drawable.mehrdad;
     ArrayList<ObjectSlider> sliders = new ArrayList<>();
-    //sliders.add(new ObjectSlider("https://zocada.com/wp-content/uploads/2018/07/android_recycler_view-740x370.png"));
-    //sliders.add(new ObjectSlider("https://blog.iamsuleiman.com/wp-content/uploads/2016/05/android-recyclerview-fastadapter-header.png"));
     sliders.add(new ObjectSlider(myImageRes));
     sliders.add(new ObjectSlider(myImageRes));
 
-    //ObjectBanner banner1 = new ObjectBanner("https://advancedrecyclerview.h6ah4i.com/images/ogp.png");
-    ObjectBanner banner2 = new ObjectBanner("https://cdn-images-1.medium.com/max/1200/1*mU-dHEyAcrcOz-kHU0YFLQ.png");
-    //ObjectBanner banner3 = new ObjectBanner("https://cdn-images-1.medium.com/max/1600/1*yCPgYs8v23tPN3c3VJTwxQ.png");
+    NewsHeader technology = new NewsHeader(Constants.HEADER_TECHNOLOGY);
+    NewsHeader health     = new NewsHeader(Constants.HEADER_HEALTH);
+    NewsHeader business   = new NewsHeader(Constants.HEADER_BUSINESS);
+    NewsHeader sports     = new NewsHeader(Constants.HEADER_SPORTS);
 
-    Observable<ArrayList<ObjectSlider>> arrayListObservable = Observable.just(sliders)
+    Observable<ArrayList<ObjectSlider>> observable_sliders = Observable.just(sliders)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread());
 
-    Observable<ObjectBanner> objectBannerObservable = Observable.just(banner2)
+    Observable<NewsHeader> observable_technology = Observable.just(technology)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread());
 
-    Observable<ArrayList<Object>> zip = Observable.zip(
-        arrayListObservable,
-        objectBannerObservable,
-        ApiService.getApiService().getNews(page,"us", "technology"),
-        ApiService.getApiService().getNews(page,"us", "health"),
-        ApiService.getApiService().getNews(page,"us", "business"),
-        ApiService.getApiService().getNews(page,"us", "sports"),
-        (objectSliders, objectBanner, news, news2, news3, news4) -> {
+    Observable<NewsHeader> observable_health = Observable.just(health)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread());
+
+    Observable<NewsHeader> observable_business = Observable.just(business)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread());
+
+    Observable<NewsHeader> observable_sports = Observable.just(sports)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread());
+
+    Observable.zip(
+        observable_sliders,
+        observable_technology,
+        ApiService.getApiService().getNews(Constants.PAGE_SIZE, Constants.LANGUAGE, Constants.QUERY_PARAMETER_TECHNOLOGY),
+        observable_health,
+        ApiService.getApiService().getNews(Constants.PAGE_SIZE, Constants.LANGUAGE, Constants.QUERY_PARAMETER_HEALTH),
+        observable_business,
+        ApiService.getApiService().getNews(Constants.PAGE_SIZE, Constants.LANGUAGE, Constants.QUERY_PARAMETER_BUSINESS),
+        observable_sports,
+        ApiService.getApiService().getNews(Constants.PAGE_SIZE, Constants.LANGUAGE, Constants.QUERY_PARAMETER_SPORTS),
+        (objectSliders    ,
+         technology_object, news_technology,
+         health_object    , news_health,
+         business_object  , news_business,
+         sports_object    , news_sports) -> {
           ArrayList<Object> objects = new ArrayList<>();
           objects.add(objectSliders);
-          objects.add(objectBanner);
-          objects.add(news);
-          objects.add(news2);
-          objects.add(news3);
-          objects.add(news4);
+          objects.add(technology_object);
+          objects.add(news_technology);
+          objects.add(health_object);
+          objects.add(news_health);
+          objects.add(business_object);
+          objects.add(news_business);
+          objects.add(sports_object);
+          objects.add(news_sports);
           return objects;
         }
-    );
-    zip.subscribe(new Observer<ArrayList<Object>>() {
-      @Override
-      public void onSubscribe(Disposable d) {
+    ).subscribe(this);
 
+
+  }
+
+  @Override
+  public void onSubscribe(Disposable d) {
+    disposable = d;
+  }
+
+  @Override
+  public void onNext(ArrayList<Object> objectArrayList) {
+    for (Object obj : objectArrayList) {
+      if (obj instanceof ArrayList && (((ArrayList) obj).get(0) instanceof ObjectSlider)) {
+        adapter.addSliders( (ArrayList<ObjectSlider>) obj );
+      } else if (obj instanceof News) {
+        adapter.addArticles( ((News) obj).getArticles() );
+      } else if (obj instanceof NewsHeader) {
+        adapter.addHeader( (NewsHeader) obj );
       }
+    }
+  }
 
-      @Override
-      public void onNext(ArrayList<Object> objectArrayList) {
-        for (Object obj : objectArrayList) {
-          if (obj instanceof News) {
-            objects.add( ((News) obj).getArticles() );
-          }
-          if (obj instanceof ArrayList && (((ArrayList) obj).get(0) instanceof ObjectSlider)) {
-            objects.add(obj);
-          }
-          if (obj instanceof ObjectBanner) {
-            objects.add(obj);
-          }
-        }
-      }
+  @Override
+  public void onError(Throwable e) {
+    Log.e(TAG, "onError: " + e.getMessage());
+  }
 
-      @Override
-      public void onError(Throwable e) {
-        Log.e(TAG, "onError: " + e.getMessage());
-      }
-
-      @Override
-      public void onComplete() {
-        adapter.notifyDataSetChanged();
-      }
-    });
-
-
+  @Override
+  public void onComplete() {
+    adapter.notifyDataSetChanged();
+    progressBar.setVisibility(View.GONE);
   }
 
   @Override
@@ -167,12 +182,12 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-
   @Override
   protected void onStop() {
-    if (!disposables.isDisposed()) {
-      disposables.dispose();
+    if (!disposable.isDisposed()) {
+      disposable.dispose();
     }
     super.onStop();
   }
+
 }

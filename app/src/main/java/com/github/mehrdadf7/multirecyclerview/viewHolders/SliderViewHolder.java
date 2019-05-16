@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mehrdadf7.multirecyclerview.MehrdadApp;
 import com.github.mehrdadf7.multirecyclerview.utils.PicassoImageLoadingService;
 import com.github.mehrdadf7.multirecyclerview.R;
 import com.github.mehrdadf7.multirecyclerview.adapters.MySliderAdapter;
@@ -28,15 +29,10 @@ public class SliderViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(ArrayList<ObjectSlider> sliders) {
-    Slider.init(new PicassoImageLoadingService());
+    Slider.init(new PicassoImageLoadingService(itemView.getContext()));
     slider.setAdapter(new MySliderAdapter(sliders));
 
-    slider.setOnSlideClickListener(new OnSlideClickListener() {
-      @Override
-      public void onSlideClick(int position) {
-        Toast.makeText(itemView.getContext(), "item " + position + " clicked", Toast.LENGTH_SHORT).show();
-      }
-    });
+    slider.setOnSlideClickListener(position -> Toast.makeText(itemView.getContext(), "item " + position + " clicked", Toast.LENGTH_SHORT).show());
 
   }
 
