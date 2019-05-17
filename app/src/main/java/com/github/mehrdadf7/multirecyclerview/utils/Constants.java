@@ -17,8 +17,4 @@ public class Constants {
   public static final String HEADER_BUSINESS   = "Business";
   public static final String HEADER_SPORTS     = "Sports";
 
-
-
-
-
 }

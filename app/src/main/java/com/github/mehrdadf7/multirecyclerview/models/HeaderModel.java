@@ -2,15 +2,15 @@ package com.github.mehrdadf7.multirecyclerview.models;
 
 import java.io.Serializable;
 
-public class NewsHeader implements Serializable {
+public class HeaderModel implements Serializable {
 
   private String category;
 
-  public NewsHeader(String category) {
+  public HeaderModel(String category) {
     this.category = category;
   }
 
-  public NewsHeader() {
+  public HeaderModel() {
   }
 
   public String getCategory() {

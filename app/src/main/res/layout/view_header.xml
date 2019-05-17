@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="handlers"
+            type="com.github.mehrdadf7.multirecyclerview.utils.Handlers" />
+        <variable
+            name="headerModel"
+            type="com.github.mehrdadf7.multirecyclerview.models.HeaderModel" />
+    </data>
+
+   <RelativeLayout
+       android:onClick="@{(header) -> handlers.onArticleHeaderClick(headerModel)}"
+        android:background="@drawable/bg_header"
+        android:id="@+id/parentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <TextView
+            android:text="@{headerModel.category}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:id="@+id/titleCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:tint="#9E9E9E"
+                android:id="@+id/icon"
+                app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="Show All"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

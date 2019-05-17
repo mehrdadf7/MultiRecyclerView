@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.app.Activity" />
+        <variable
+            name="headerModel"
+            type="com.github.mehrdadf7.multirecyclerview.models.HeaderModel" />
+        <variable
+            name="articleAdapter"
+            type="com.github.mehrdadf7.multirecyclerview.adapters.child.ArticleAdapter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".pages.NewsActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:onClick="@{(view)->((Activity)(view.getContext())).finish()}"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/back"
+                    android:padding="16dp"
+                    android:tint="@android:color/white"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/white"
+                    android:text="@{headerModel.category}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/layout_article_vertical_row"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            app:reverseLayout="false"
+            android:adapter="@{articleAdapter}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            app:lottie_colorFilter="@color/colorAccent"
+            app:lottie_autoPlay="true"
+            app:lottie_speed="2.5"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:layout_width="74dp"
+            android:layout_height="74dp" />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:id="@+id/progressBar_footer"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

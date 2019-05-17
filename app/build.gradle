@@ -24,6 +24,9 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -33,7 +36,6 @@ dependencies {
             'androidx.constraintlayout:constraintlayout:1.1.3',
             'com.google.android.material:material:1.0.0',
             'com.ss.bannerslider:bannerslider:2.0.0',
-            'com.squareup.picasso:picasso:2.71828',
             'io.reactivex.rxjava2:rxjava:2.2.3',
             'io.reactivex.rxjava2:rxandroid:2.1.0',
             'com.squareup.retrofit2:retrofit:2.5.0',
@@ -42,11 +44,11 @@ dependencies {
             'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
             "androidx.core:core-ktx:1.0.2",
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+            'com.nostra13.universalimageloader:universal-image-loader:1.9.5',
+            'android.arch.lifecycle:extensions:1.1.0',
+            'com.airbnb.android:lottie:3.0.2'
     )
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

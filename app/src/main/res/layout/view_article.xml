@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="articleAdapter"
+            type="com.github.mehrdadf7.multirecyclerview.adapters.child.ArticleMainPageAdapter" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:reverseLayout="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/layout_article_horizontal_row"
+            android:adapter="@{articleAdapter}"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_marginTop="8dp"
+            android:background="#eee"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

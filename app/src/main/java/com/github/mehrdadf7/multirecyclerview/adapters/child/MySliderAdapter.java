@@ -1,9 +1,8 @@
-package com.github.mehrdadf7.multirecyclerview.adapters;
+package com.github.mehrdadf7.multirecyclerview.adapters.child;
 
 import com.github.mehrdadf7.multirecyclerview.models.ObjectSlider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ss.com.bannerslider.adapters.SliderAdapter;
 import ss.com.bannerslider.viewholder.ImageSlideViewHolder;

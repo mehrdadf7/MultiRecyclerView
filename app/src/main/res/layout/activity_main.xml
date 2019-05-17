@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".pages.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+        <variable
+            name="handlers"
+            type="com.github.mehrdadf7.multirecyclerview.utils.Handlers" />
+        <variable
+            name="multiAdapter"
+            type="com.github.mehrdadf7.multirecyclerview.adapters.MultiAdapter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="match_parent"
+        tools:context=".pages.MainActivity">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            app:layout_scrollFlags="scroll|enterAlways|snap"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="56dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:textStyle="bold"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
@@ -30,7 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
+                    android:onClick="@{() -> handlers.openLinkGithub()}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:id="@+id/open_github"
                     android:layout_alignParentEnd="true"
@@ -42,21 +48,25 @@
 
             </RelativeLayout>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:adapter="@{multiAdapter}"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            app:lottie_colorFilter="@color/colorAccent"
+            app:lottie_autoPlay="true"
+            app:lottie_speed="2.5"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:layout_width="74dp"
+            android:layout_height="74dp" />
 
-    <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:id="@+id/progressBar"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

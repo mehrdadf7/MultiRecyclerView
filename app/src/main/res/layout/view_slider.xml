@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="adapter"
+            type="com.github.mehrdadf7.multirecyclerview.adapters.child.MySliderAdapter" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ss.com.bannerslider.Slider
+            android:adapter="@{adapter}"
+            app:slider_loopSlides="true"
+            app:slider_interval="5000"
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
+
+    </LinearLayout>
+</layout>

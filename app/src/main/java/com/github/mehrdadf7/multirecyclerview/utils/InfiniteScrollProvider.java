@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 public class InfiniteScrollProvider {
 
   /**
-   * {@link RecyclerView} that we want to provide infinite scrolling behavior for it
+   * {@link RecyclerView} that we want to provideHeader infinite scrolling behavior for it
    */
   private RecyclerView recyclerView;
 
@@ -52,7 +52,7 @@ public class InfiniteScrollProvider {
   private static final int THRESHOLD = 3;
 
   /**
-   * this function attach {@link #recyclerView} to provide infinite scroll for it
+   * this function attach {@link #recyclerView} to provideHeader infinite scroll for it
    *
    * @param recyclerView       see {@link #recyclerView} for more information
    * @param onLoadMoreListener callback for notifying when user reach list ends.

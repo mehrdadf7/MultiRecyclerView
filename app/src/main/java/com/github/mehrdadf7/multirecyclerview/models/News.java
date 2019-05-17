@@ -1,5 +1,12 @@
 package com.github.mehrdadf7.multirecyclerview.models;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.BindingAdapter;
+
+import com.github.mehrdadf7.multirecyclerview.component.ImageLoadingInjector;
+
 import java.util.ArrayList;
 
 public class News {
@@ -10,8 +17,13 @@ public class News {
     return articles;
   }
 
-  public static class Article {
+  public static class Article extends BaseObservable {
     private String author, title, description, url, urlToImage, publishedAt, content;
+
+    @BindingAdapter({"imageArticle"})
+    public static void setImageArticle(ImageView imageView , String url) {
+      ImageLoadingInjector.getImageLoading().loadImage(url, imageView);
+    }
 
     public String getTitle() {
       return title;
@@ -21,6 +33,7 @@ public class News {
       this.title = title;
     }
 
+
     public String getAuthor() {
       return author;
     }
@@ -28,6 +41,7 @@ public class News {
     public void setAuthor(String author) {
       this.author = author;
     }
+
 
     public String getDescription() {
       return description;
@@ -37,6 +51,7 @@ public class News {
       this.description = description;
     }
 
+
     public String getUrl() {
       return url;
     }
@@ -44,6 +59,7 @@ public class News {
     public void setUrl(String url) {
       this.url = url;
     }
+
 
     public String getUrlToImage() {
       return urlToImage;
@@ -53,6 +69,7 @@ public class News {
       this.urlToImage = urlToImage;
     }
 
+
     public String getPublishedAt() {
       return publishedAt;
     }
@@ -60,6 +77,7 @@ public class News {
     public void setPublishedAt(String publishedAt) {
       this.publishedAt = publishedAt;
     }
+
 
     public String getContent() {
       return content;
