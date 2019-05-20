@@ -1,11 +1,10 @@
 package com.github.mehrdadf7.multirecyclerview.viewmodels.provideData;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import io.reactivex.disposables.Disposable;
 
-public class StateLiveData<T>
-    extends MutableLiveData<StateData<T>> {
+public class StateLiveData<T> extends LiveData<StateData<T>> {
 
   public void setDispose(Disposable disposable) {
     setValue(new StateData<T>().dispose(disposable));

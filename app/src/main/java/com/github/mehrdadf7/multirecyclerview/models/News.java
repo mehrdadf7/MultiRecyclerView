@@ -20,6 +20,11 @@ public class News {
   public static class Article extends BaseObservable {
     private String author, title, description, url, urlToImage, publishedAt, content;
 
+    public Article(String title, String description) {
+      this.title = title;
+      this.description = description;
+    }
+
     @BindingAdapter({"imageArticle"})
     public static void setImageArticle(ImageView imageView , String url) {
       ImageLoadingInjector.getImageLoading().loadImage(url, imageView);

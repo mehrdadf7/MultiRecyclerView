@@ -30,6 +30,9 @@ android {
 }
 
 dependencies {
+
+    def room_version = "1.1.1"
+
     implementation(
             fileTree(dir: 'libs', include: ['*.jar']),
             'androidx.appcompat:appcompat:1.0.2',
@@ -46,8 +49,17 @@ dependencies {
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             'com.nostra13.universalimageloader:universal-image-loader:1.9.5',
             'android.arch.lifecycle:extensions:1.1.0',
-            'com.airbnb.android:lottie:3.0.2'
+            'com.airbnb.android:lottie:3.0.2',
+            "android.arch.persistence.room:runtime:$room_version"
     )
+
+    implementation ('com.squareup.retrofit2:converter-simplexml:2.0.0-beta3') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
